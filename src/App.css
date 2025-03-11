@@ -1,5 +1,36 @@
 @import "tailwindcss";
+@theme {
+  --color-lastprice-equal: rgba(134, 152, 170, 0.12);
+  --color-lastprice-up: rgba(16, 186, 104, 0.12);
+  --color-lastprice-down: rgba(255, 90, 90, 0.12);
+  --color-quote-bid-hover: rgba(255, 90, 90, 0.12);
+  --color-quote-ask-hover: rgba(16, 186, 104, 0.12);
+  --color-animate-green: rgba(0, 177, 93, 0.5);
+  --color-animate-red: rgba(255, 91, 90, 0.5);
+  --color-accumulative-green: rgba(16, 186, 104, 0.12);
+  --color-accumulative-red: rgba(255, 90, 90, 0.12);
+  --animate-bg-amine-green: bg-amine-green 1s ease-in-out infinite;
+  @keyframes bg-amine-green {
+    0%,
+    100% {
+      background: rgba(0, 177, 93, 0);
+    }
+    50% {
+      background: rgba(0, 177, 93, 0.5);
+    }
+  }
 
+  --animate-bg-amine-red: bg-amine-red 1s ease-in-out infinite;
+  @keyframes bg-amine-red {
+    0%,
+    100% {
+      background: rgba(255, 91, 90, 0);
+    }
+    50% {
+      background: rgba(255, 91, 90, 0.5);
+    }
+  }
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
