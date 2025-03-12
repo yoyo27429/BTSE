@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Order, OrderBook, Quotes } from "../type/orderType";
+import {useEffect, useRef, useState} from "react";
+import {Order, OrderBook, Quotes} from "../type/orderType";
 
 
 export function useOrderBook(symbol: string) {
-    const [orderBook, setOrderBook] = useState<OrderBook>({ asks: [], bids: [], seqNum: 0 });
+    const [orderBook, setOrderBook] = useState<OrderBook>({asks: [], bids: [], seqNum: 0});
 
     const socketRef = useRef<WebSocket | null>(null);
 
@@ -49,8 +49,8 @@ export function useOrderBook(symbol: string) {
                 const asks = transformOrderData(data.asks).filter(order => order.size > 0).sort((a, b) => a.price - b.price); // 賣單排序
                 const bids = transformOrderData(data.bids).filter(order => order.size > 0).sort((a, b) => b.price - a.price); // 買單排序
 
-                const askWithTotal = calculateTotal(asks, 'sell');
-                const bidWithTotal = calculateTotal(bids, 'buy');
+                const askWithTotal = calculateTotal(asks);
+                const bidWithTotal = calculateTotal(bids);
 
                 return {
                     asks: askWithTotal.slice(0, 8),  // 只回傳前 8 層賣單
@@ -72,8 +72,8 @@ export function useOrderBook(symbol: string) {
                 const updatedBids = updateOrders(prev.bids, data.bids).filter(order => order.size > 0).sort((a, b) => b.price - a.price);
 
                 // 計算累積的數量
-                const askWithTotal = calculateTotal(updatedAsks.slice(0, 8), 'sell'); // 只回傳前 8 層買單
-                const bidWithTotal = calculateTotal(updatedBids.slice(0, 8), 'buy'); // 只回傳前 8 層賣單
+                const askWithTotal = calculateTotal(updatedAsks.slice(0, 8)); // 只回傳前 8 層買單
+                const bidWithTotal = calculateTotal(updatedBids.slice(0, 8)); // 只回傳前 8 層賣單
 
                 return {
                     asks: askWithTotal,
@@ -120,7 +120,7 @@ export function useOrderBook(symbol: string) {
     }
 
     // 計算 total
-    const calculateTotal = (orders: Order[], type: 'buy' | 'sell'): Quotes[] => {
+    const calculateTotal = (orders: Order[]): Quotes[] => {
         let total = 0;
         return orders.map(order => {
             total += order.size;
@@ -134,8 +134,8 @@ export function useOrderBook(symbol: string) {
 
     /** 重新訂閱 */
     const resubscribe = () => {
-        socketRef.current?.send(JSON.stringify({ op: "unsubscribe", args: [`update:${symbol}`] }));
-        socketRef.current?.send(JSON.stringify({ op: "subscribe", args: [`update:${symbol}`] }));
+        socketRef.current?.send(JSON.stringify({op: "unsubscribe", args: [`update:${symbol}`]}));
+        socketRef.current?.send(JSON.stringify({op: "subscribe", args: [`update:${symbol}`]}));
     };
 
     // 重組資料
@@ -148,5 +148,5 @@ export function useOrderBook(symbol: string) {
         }));
     };
 
-    return { orderBook };
+    return {orderBook};
 }

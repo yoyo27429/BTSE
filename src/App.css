@@ -9,24 +9,22 @@
   --color-animate-red: rgba(255, 91, 90, 0.5);
   --color-accumulative-green: rgba(16, 186, 104, 0.12);
   --color-accumulative-red: rgba(255, 90, 90, 0.12);
-  --animate-bg-amine-green: bg-amine-green 1s ease-in-out infinite;
+  --animate-bg-amine-green: bg-amine-green 0.5s ease-in-out 1;
   @keyframes bg-amine-green {
-    0%,
     100% {
       background: rgba(0, 177, 93, 0);
     }
-    50% {
+    0% {
       background: rgba(0, 177, 93, 0.5);
     }
   }
 
-  --animate-bg-amine-red: bg-amine-red 1s ease-in-out infinite;
+  --animate-bg-amine-red: bg-amine-red 0.5s ease-out 1;
   @keyframes bg-amine-red {
-    0%,
-    100% {
+    80% {
       background: rgba(255, 91, 90, 0);
     }
-    50% {
+    0% {
       background: rgba(255, 91, 90, 0.5);
     }
   }
